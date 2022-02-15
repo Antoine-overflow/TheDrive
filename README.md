@@ -89,3 +89,18 @@ cd TheDrive/glusterfs_config
 ./launch.sh
 ```
 
+## 2.5 Nextcloud - OnlyOffice
+
+To start nextcloud and onlyoffice run : 
+```
+cd TheDrive/nextcloud
+docker-compose up -d
+```
+
+Then go to localhost:8081 and add in the application OnlyOffice then run :
+`bash set_configuration.sh`
+
+You can now use OnlyOffice and edit online document in nextcloud.
+
+
+
