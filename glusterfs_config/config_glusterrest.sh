@@ -4,6 +4,7 @@ git checkout fixing_glusterrest_install
 sudo python3 setup.py install
 sudo glusterrest install
 
+cd ..
 mv gluster_rest.service /etc/systemd/system/
 
 systemctl daemon-reload
