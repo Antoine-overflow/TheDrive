@@ -5,7 +5,7 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-EnvironmentFile=/etc/sysctl.conf/docker-volume-glusterfs.conf
+EnvironmentFile=/etc/sysconfig/docker-volume-glusterfs.conf
 ExecStart=/usr/local/bin/docker-volume-glusterfs-amd64 $GLUSTERFS_DRIVER_OPTS
 Restart=on-abnormal
 
