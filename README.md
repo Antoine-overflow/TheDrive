@@ -1,6 +1,7 @@
 # TheDrive
 
 ## 1. Connect to the main VM
+sudo apt-get install -y golang-go 
 
 After configure ssh key, run:
 ```bash
@@ -73,3 +74,18 @@ docker swarm join --token SWMTKN-1-46ckv0krwb7jxnw6r385cenoy3ekebc85rrok2l7hxhkl
 ## Bloc-Note collectif
 
 https://pad.ird.fr/p/ensgTSI
+
+## 2.4 Glusterfs
+
+To install Glusterfs on your new node, install git:
+`apt-get install git`
+
+Then clone this repository:
+`git clone https://github.com/Antoine-overflow/TheDrive`
+
+Finally launch:
+```
+cd TheDrive/glusterfs_config
+./launch.sh
+```
+
