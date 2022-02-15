@@ -1,8 +1,18 @@
 # TheDrive
 
+## 1. Connect to the main VM
 
-## 1. Add new VM
-### 1.1 Configure connection to new VM
+After configure ssh key, run:
+```bash
+ssh -A root@ensg.duckdns.org
+```
+
+Access to loadbalancer ensg.duckdns.org:8080:
+- login: admin
+- password: password
+
+## 2. Add new VM
+### 2.1 Configure connection to new VM
 
 To access the new VM from the main VM for the first time:
 ```bash
@@ -24,7 +34,7 @@ Where XX : number(01, 02, ...) of the VM
 
 <br>
 
-### 1.2 Install docker
+### 2.2 Install docker
 
 Run on the XX VM:
 ```bash
@@ -47,7 +57,7 @@ sudo usermod -a -G docker $USER
 <br>
 
 
-### 1.3 Add a new node
+### 2.3 Add a new node
 
 Run on the XX VM.
 To add a new manager node on the swarm:
