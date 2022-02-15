@@ -70,6 +70,6 @@ To add a new worker node on the swarm:
 docker swarm join --token SWMTKN-1-46ckv0krwb7jxnw6r385cenoy3ekebc85rrok2l7hxhkl8fw6i-2c7u2mxlrud604znaipi5g4zn 192.168.1.54:2377
 ```
 
-##Bloc-Note collectif
+## Bloc-Note collectif
 
 https://pad.ird.fr/p/ensgTSI
