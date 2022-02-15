@@ -1,0 +1,12 @@
+[Unit]
+Description=GlusterFS Rest API 
+Documentation=https://github.com/tcoupin/glusterfs-rest
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=glusterrestd
+Restart=on-abnormal
+
+[Install]
+WantedBy=multi-user.target
