@@ -1,6 +1,6 @@
 mv docker-volume-glusterfs-amd64 /usr/local/bin/
 mv docker-volume-glusterfs.service /etc/systemd/system/
-mkdir /etc/sysconfig
+mkdir -p /etc/sysconfig
 mv docker-volume-glusterfs.conf /etc/sysconfig/
 systemctl daemon-reload
 
