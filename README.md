@@ -92,7 +92,7 @@ The docker syntax to create a volume using gluster is:
 
 ## Using glusterfs in a service
 
-To use the gluster volume plugin in a service you deploy on a cluster, you need to pass some parameters to docker<\br>
+To use the gluster volume plugin in a service you deploy on a cluster, you need to pass some parameters to docker</br>
 in your config file when creating the volumes used. You have an example of a .yml file that uses glusterfs in this github repo:
 `exemple.yml`
 
