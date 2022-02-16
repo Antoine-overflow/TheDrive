@@ -105,7 +105,7 @@ You can now use OnlyOffice and edit online document in nextcloud.
 
 ## 2.6 Tests
 
-Install rclone with:
+Install rclone for Linux with:
 ```
 curl https://rclone.org/install.sh | sudo bash
 ```
