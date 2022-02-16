@@ -171,10 +171,13 @@ e) Edit this remote
 d) Delete this remote
 y/e/d> y
 ```
-Choose a user and password that already exist in nextcloud
+Choose a user and password that already exist in nextcloud.
+
+
+<br>
 
 To test, launch for exemple:
 ```
 rclone copy remote:/ /home/formation/Bureau/Docker_cluster/TheDrive/tests/ -progress
 ```
-It permits to copy drive's documents in /home/formation/Bureau/Docker_cluster/TheDrive/tests/ and done some time informations
+It permits to copy drive's documents in /home/formation/Bureau/Docker_cluster/TheDrive/tests/ and done some time informations. You can make the oppposite to exchange path/source and path/destination.
