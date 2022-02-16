@@ -83,9 +83,13 @@ To install Glusterfs on your new node, install git:
 Then clone this repository:
 `git clone https://github.com/Antoine-overflow/TheDrive`
 
-Finally launch:
+launch:
 ```
 cd TheDrive/glusterfs_config
 ./launch.sh
 ```
+Finally, go to a node that is already in the cluster and use: 
+`gluster peer probe ensg-XX.local`
 
+The docker syntax to create a volume using gluster is:
+`docker volume create --driver glusterfs myvolume`
