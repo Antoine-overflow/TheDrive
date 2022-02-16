@@ -1,7 +1,10 @@
 # TheDrive
 
 ## 1. Connect to the main VM
-sudo apt-get install -y golang-go 
+```bash
+sudo apt-get update
+sudo apt-get install -y golang-go
+```
 
 After configure ssh key, run:
 ```bash
