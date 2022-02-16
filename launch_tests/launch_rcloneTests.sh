@@ -1,12 +1,12 @@
 #!/bin/bash
 
-rclone config create remote webdav url=http://localhost:8087/remote.php/dav/files/admin/ vendor=nextcloud user=admin pass=passwordCMAlla bearer_token=remconfig
-rclone copy /home/formation/Bureau/Docker_cluster/TheDrive/tests/ remote:/ --progress
+rclone config create remote webdav url=http://localhost:81/remote.php/dav/files/admin/ vendor=nextcloud user=admin pass=passwordCMAlla bearer_token=remconfig
+rclone copy ~/TheDrive/launch_tests/tests remote:/ --progress
 
-rm -r /home/formation/Bureau/Docker_cluster/TheDrive/tests/
-mkdir /home/formation/Bureau/Docker_cluster/TheDrive/tests/tests
+rm -r ~/TheDrive/launch_tests/tests/tests
+mkdir ~/TheDrive/launch_tests/tests/tests
 
-rclone copy remote:/tests /home/formation/Bureau/Docker_cluster/TheDrive/tests/tests --progress
+rclone copy remote:/tests ~/TheDrive/launch_tests/tests/tests --progress
 
 rclone purge remote:/tests
 rclone config delete remote
