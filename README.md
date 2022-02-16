@@ -112,10 +112,6 @@ curl https://rclone.org/install.sh | sudo bash
 
 Create a first remote by run in a terminal:
 ```
-rclone config
-```
-Then create a remote to connect to nextcloud:
-```
 rclone config create remote webdav url=http://localhost:81/remote.php/dav/files/admin/ vendor=nextcloud user=user pass=password bearer_token=remote
 ```
 Verify the url in nextcloud/Paramètres/WebDAV.
