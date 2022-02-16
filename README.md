@@ -102,5 +102,79 @@ Then go to localhost:8081 and add in the application OnlyOffice then run :
 
 You can now use OnlyOffice and edit online document in nextcloud.
 
+## 2.6 Tests
 
+Install rclone with : a voir
 
+Create a first remote by run in a terminal:
+```
+rclone config
+```
+This will guide you through an interactive setup process:
+```
+No remotes found - make a new one
+n) New remote
+s) Set configuration password
+q) Quit config
+n/s/q> n
+name> remote
+Type of storage to configure.
+Choose a number from below, or type in your own value
+[snip]
+XX / Webdav
+   \ "webdav"
+[snip]
+Storage> webdav
+URL of http host to connect to
+Choose a number from below, or type in your own value
+ 1 / Connect to example.com
+   \ "https://example.com"
+url> http://localhost:81/remote.php/dav/files/admin/ (for exemple: go to google drive Param to obtain the adress)
+Name of the Webdav site/service/software you are using
+Choose a number from below, or type in your own value
+ 1 / Nextcloud
+   \ "nextcloud"
+ 2 / Owncloud
+   \ "owncloud"
+ 3 / Sharepoint Online, authenticated by Microsoft account.
+   \ "sharepoint"
+ 4 / Sharepoint with NTLM authentication. Usually self-hosted or on-premises.
+   \ "sharepoint-ntlm"
+ 5 / Other site/service or software
+   \ "other"
+vendor> 1
+User name
+user> user
+Password.
+y) Yes type in my own password
+g) Generate random password
+n) No leave this optional password blank
+y/g/n> y
+Enter the password:
+password:
+Confirm the password:
+password:
+Bearer token instead of user/pass (e.g. a Macaroon)
+bearer_token>
+Remote config
+--------------------
+[remote]
+type = webdav
+url = http://localhost:81/remote.php/dav/files/admin/
+vendor = nextcloud
+user = user
+pass = *** ENCRYPTED ***
+bearer_token =
+--------------------
+y) Yes this is OK
+e) Edit this remote
+d) Delete this remote
+y/e/d> y
+```
+Choose a user and password that already exist in nextcloud
+
+To test, launch for exemple:
+```
+rclone copy remote:/ /home/formation/Bureau/Docker_cluster/TheDrive/tests/ -progress
+```
+It permits to copy drive's documents in /home/formation/Bureau/Docker_cluster/TheDrive/tests/ and done some time informations
