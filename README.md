@@ -110,18 +110,14 @@ Install rclone for Linux with:
 curl https://rclone.org/install.sh | sudo bash
 ```
 
-Create a first remote by run in a terminal:
-```
-rclone config create remote webdav url=http://localhost:81/remote.php/dav/files/admin/ vendor=nextcloud user=user pass=password bearer_token=remote
-```
-Verify the url in nextcloud/Paramètres/WebDAV.
-Choose a user and password that already exist in nextcloud.
+In tests, in launch_rcloneTests.sh:
+- verify the url in nextcloud/Paramètres/WebDAV
+- choose a user and password that already exist in nextcloud
 
 
 <br>
 
-To test, launch for exemple:
+To test, launch:
 ```
-rclone copy remote:/ /home/formation/Bureau/Docker_cluster/TheDrive/tests/ -progress
+./launch_rcloneTests.sh
 ```
-It permits to copy drive's documents in /home/formation/Bureau/Docker_cluster/TheDrive/tests/ and done some time informations. You can make the oppposite to exchange path/source and path/destination.

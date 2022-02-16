@@ -1,0 +1,8 @@
+
+.taille_canvas {
+
+    width:450px;
+    height:450px;
+    margin-top:10px;
+    border:dashed;
+}
