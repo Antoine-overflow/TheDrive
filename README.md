@@ -110,8 +110,9 @@ Install rclone for Linux with:
 curl https://rclone.org/install.sh | sudo bash
 ```
 
-In tests, in launch_rcloneTests.sh:
+In tests, in the first line of launch_rcloneTests.sh:
 - verify the url in nextcloud/Paramètres/WebDAV
+- verify the port
 - choose a user and password that already exist in nextcloud
 
 
