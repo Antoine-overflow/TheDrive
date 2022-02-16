@@ -71,10 +71,6 @@ To add a new worker node on the swarm:
 docker swarm join --token SWMTKN-1-46ckv0krwb7jxnw6r385cenoy3ekebc85rrok2l7hxhkl8fw6i-2c7u2mxlrud604znaipi5g4zn 192.168.1.54:2377
 ```
 
-## Bloc-Note collectif
-
-https://pad.ird.fr/p/ensgTSI
-
 ## 2.4 Glusterfs
 
 To install Glusterfs on your new node, install git:
@@ -93,3 +89,7 @@ Finally, go to a node that is already in the cluster and use:
 
 The docker syntax to create a volume using gluster is:
 `docker volume create --driver glusterfs myvolume`
+
+## Bloc-Note collectif
+
+https://pad.ird.fr/p/ensgTSI
