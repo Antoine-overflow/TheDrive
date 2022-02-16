@@ -1,0 +1,24 @@
+service:
+  #your service name
+  test:
+    #the image it uses
+    image: test-image
+    #which port(s) it will use
+    port: 
+      - "81:80"
+    #define volume that you will use and the path inside the container 
+    volume:
+      - volume_name:/physical_path_in_container
+    #Settings on how to deploy your service
+    deploy:
+      #the service will be deployed on X nodes
+      replicas: X
+#creation of volume
+volumes:
+  volume_name:
+    #here you need to specify that this volume will be created with the glusterfs plugin
+    driver: glusterfs
+    #the volume will be created on X nodes of the cluster. X need to be a divisor of the
+    #total number of nodes in the cluster
+    driver_opts:
+      replica: X
