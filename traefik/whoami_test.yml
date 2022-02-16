@@ -6,7 +6,9 @@ services:
     image: traefik/whoami
     deploy:
       labels:
-        - traefik.http.services.whoami.loadbalancer.server.port=80
+        # - traefik.http.services.whoami.loadbalancer.server.port=80
+        - traefik.http.services.whoami.entrypoints=websecure
+        - traefik.http.services.whoami.tls.certresolver=myresolver
     networks:
       - traefik_default
 networks:
