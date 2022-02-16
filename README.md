@@ -79,25 +79,23 @@ To install Glusterfs on your new node, install git:
 Then clone this repository:
 `git clone https://github.com/Antoine-overflow/TheDrive`
 
-launch:
+It will install the glustercli, gluster server, gluster_rest api and its client plugin.
+
+When a new node is created, the `docker-volume-glusterfs.conf` needs to be updated in every node: <br>
+`GLUSTERFS_DRIVER_OPTS='-servers ensg-00.local:ensg-01.local:ensg-02.local:ensg-03.local -rest http://ensg-main.local:9000 -gfs-base /var/lib/gluster/volumes'`
+
+You have to add the new node to the -servers parameter.
+
+Go to a node that is already in the cluster and use: 
+`gluster peer probe ensg-XX.local`
+
+where XX is the number of your new node.
+
+Finally,launch in your new node:
 ```
 cd TheDrive/glusterfs_config
 ./launch.sh
 ```
-It will install the glustercli, gluster server, gluster_rest api and its client plugin.
-
-Also, when a new node is created, the `docker-volume-glusterfs.conf` needs to be updated in every node: <br>
-`GLUSTERFS_DRIVER_OPTS='-servers ensg-00.local:ensg-01.local:ensg-02.local:ensg-03.local -rest http://ensg-main.local:9000 -gfs-base /var/lib/gluster/volumes'`
-
-You have to add the new node to the -servers parameter. Then you restart the `docker-volume-glusterfs.service` service.
-
-Finally, go to a node that is already in the cluster and use: 
-`gluster peer probe ensg-XX.local`
-
-
-where XX is the number of your new node.
-
-
 
 ## 2.5 Nextcloud - OnlyOffice
 
