@@ -90,6 +90,12 @@ Finally, go to a node that is already in the cluster and use:
 The docker syntax to create a volume using gluster is:
 `docker volume create --driver glusterfs myvolume`
 
+## Using glusterfs in a service
+
+To use the gluster volume plugin in a service you deploy on a cluster, you need to pass some parameters to docker<\br>
+in your config file when creating the volumes used. You have an example of a .yml file that uses glusterfs in this github repo:
+`exemple.yml`
+
 ## Bloc-Note collectif
 
 https://pad.ird.fr/p/ensgTSI
