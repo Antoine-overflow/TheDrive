@@ -102,9 +102,13 @@ Then go to localhost:8081 and add in the application OnlyOffice then run :
 
 You can now use OnlyOffice and edit online document in nextcloud.
 
+
 ## 2.6 Tests
 
-Install rclone with : a voir
+Install rclone with:
+```
+curl https://rclone.org/install.sh | sudo bash
+```
 
 Create a first remote by run in a terminal:
 ```
