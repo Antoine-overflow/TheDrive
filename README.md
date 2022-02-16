@@ -84,11 +84,17 @@ launch:
 cd TheDrive/glusterfs_config
 ./launch.sh
 ```
+It will install the glustercli, gluster server, gluster_rest api and its client plugin.
+
+Also, when a new node is created, the `docker-volume-glusterfs.conf` needs to be updated in every node: <br>
+`GLUSTERFS_DRIVER_OPTS='-servers ensg-00.local:ensg-01.local:ensg-02.local:ensg-03.local -rest http://ensg-main.local:9000 -gfs-base /var/lib/gluster/volumes'`
+
+You have to add the new node to the -servers parameter. Then you restart the `docker-volume-glusterfs.service` service.
+
 Finally, go to a node that is already in the cluster and use: 
 `gluster peer probe ensg-XX.local`
 
-The docker syntax to create a volume using gluster is:
-`docker volume create --driver glusterfs myvolume`
+where XX is the number of your new node.
 
 ## Using glusterfs in a service
 
