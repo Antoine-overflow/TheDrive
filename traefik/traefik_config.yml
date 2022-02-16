@@ -53,7 +53,7 @@ services:
 #   MONITORING_default:
 #     external:
 #       name: MONITORING_default
-volume:
+volumes:
   letsEncrypt:
     driver: glusterfs
     driver_opts:
