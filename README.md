@@ -94,13 +94,30 @@ You have to add the new node to the -servers parameter. Then you restart the `do
 Finally, go to a node that is already in the cluster and use: 
 `gluster peer probe ensg-XX.local`
 
+
 where XX is the number of your new node.
+
+
+
+## 2.5 Nextcloud - OnlyOffice
+
+To start nextcloud and onlyoffice run : 
+```
+cd TheDrive/nextcloud
+docker-compose up -d
+```
+
+Then go to localhost:8081 and add in the application OnlyOffice then run :
+`bash set_configuration.sh`
+
+You can now use OnlyOffice and edit online document in nextcloud.
 
 ## Using glusterfs in a service
 
 To use the gluster volume plugin in a service you deploy on a cluster, you need to pass some parameters to docker</br>
 in your config file when creating the volumes used. You have an example of a .yml file that uses glusterfs in this github repo:
 `exemple.yml`
+
 
 ## Bloc-Note collectif
 
