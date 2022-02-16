@@ -1,0 +1,57 @@
+version: "3.3"
+
+services:
+  telegraf:
+    image: telegraf:1.4.0
+    networks:
+      - outside
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    configs:
+      - source: telegraf.conf
+        target: /etc/telegraf/telegraf.conf
+    deploy:
+      mode: global
+
+  influxdb:
+    image: influxdb:1.3.5-alpine
+    ports:
+      - 8086:8086
+    configs:
+      - source: influxdb.conf
+        target: /etc/influxdb/influxdb.conf
+    volumes:
+      - influxvolume:/var/lib/influxdb
+    deploy:
+      placement:
+        constraints:
+          - node.labels.influxdb == true
+
+  grafana:
+    image: grafana/grafana:4.5.2
+    ports:
+      - 3000:3000
+    volumes:
+      - grafanavolume:/var/lib/grafana
+    deploy:
+      placement:
+        constraints:
+          - node.labels.grafana == true
+
+volumes:
+  influxvolume:
+    external: true
+  grafanavolume:
+    external: true
+    
+configs:
+  telegraf.conf:
+    file: ./telegraf.conf
+  influxdb.conf:
+    file: ./influxdb.conf
+
+networks:
+
+  outside:
+    external:
+      name: "host"
