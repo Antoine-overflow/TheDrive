@@ -26,12 +26,14 @@ services:
       - --accesslog.filepath=/logs_traefik/traefik.log
       # save metrics into influxDB
       - --metrics.influxdb=true
-      - --metrics.influxdb.address=MONITORING_influxdb:8086
+      - --metrics.influxdb.address=http://MONITORING_influxdb:8086
       - --metrics.influxdb.protocol=http
       - --metrics.influxdb.database=traefik
       - --metrics.influxdb.addEntryPointsLabels=true
+      - --metrics.influxdb.addrouterslabels=true
       - --metrics.influxdb.addServicesLabels=true
       - --metrics.influxdb.pushInterval=10s
+      - --metrics.influxdb.additionallabels.host=ensg.duckdns.org
     ports:
       # The HTTP port
       - "80:80"
@@ -56,6 +58,7 @@ services:
     networks:
       - traefik
 
+
 networks:
   traefik:
     name: traefik
@@ -68,4 +71,5 @@ volumes:
     driver: glusterfs
     driver_opts:
       replica: 2
+
 
