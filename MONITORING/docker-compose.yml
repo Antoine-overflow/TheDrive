@@ -22,28 +22,27 @@ services:
         target: /etc/influxdb/influxdb.conf
     volumes:
       - influxvolume:/var/lib/influxdb
-    deploy:
-      placement:
-        constraints:
-          - node.labels.influxdb == true
 
   grafana:
     image: grafana/grafana:4.5.2
+    networks:
+      - traefik
     ports:
       - 3000:3000
     volumes:
       - grafanavolume:/var/lib/grafana
     deploy:
-      placement:
-        constraints:
-          - node.labels.grafana == true
+      labels:
+        - traefik.http.services.grafana.loadbalancer.server.port=3000
+        - traefik.http.routers.grafana.rule=Host(`grafana.ensg.duckdns.org`)
+        - traefik.enable=true
 
 volumes:
   influxvolume:
-    external: true
+    driver: glusterfs
   grafanavolume:
-    external: true
-    
+    driver: glusterfs
+
 configs:
   telegraf.conf:
     file: ./telegraf.conf
@@ -51,7 +50,9 @@ configs:
     file: ./influxdb.conf
 
 networks:
-
   outside:
     external:
       name: "host"
+  traefik:
+    external:
+      name: "traefik"
