@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 
 services:
   reverse-proxy:
@@ -10,31 +10,33 @@ services:
       - --providers.docker
       - --providers.docker.swarmMode=true
       - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=traefik
       - --entrypoints.websecure.address=:443
-      - --certificatesresolvers.myresolver.acme.tlschallenge=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entryPoint.to=websecure
+      - --entrypoints.web.http.redirections.entryPoint.scheme=https
+      - --entrypoints.websecure.http.tls.certresolver=myresolver
       # uncomment this lines to test and debug
-      #- --log.level=DEBUG
-      #- "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - --log.level=DEBUG
       - --certificatesresolvers.myresolver.acme.email=tsic21@ensg.eu
       - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
+      - --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
+      - --certificatesresolvers.myresolver.acme.tlschallenge=false
       # change loaction logs
-      - --log.filePath=/logs_traefik/traefik.log
+      - --accesslog.filepath=/logs_traefik/traefik.log
       # save metrics into influxDB
-      # - --metrics.influxdb=true
-      # - --metrics.influxdb.address=MONITORING_influxdb:8086
-      # - --metrics.influxdb.protocol=udp
-      # - --metrics.influxdb.database=traefik
-      # - --metrics.influxdb.username=tsi
-      # - --metrics.influxdb.password=secret
-      # - --metrics.influxdb.addEntryPointsLabels=true
-      # - --metrics.influxdb.addServicesLabels=true
-      # - --metrics.influxdb.pushInterval=10s
+      - --metrics.influxdb=true
+      - --metrics.influxdb.address=MONITORING_influxdb:8086
+      - --metrics.influxdb.protocol=http
+      - --metrics.influxdb.database=traefik
+      - --metrics.influxdb.addEntryPointsLabels=true
+      - --metrics.influxdb.addServicesLabels=true
+      - --metrics.influxdb.pushInterval=10s
     ports:
       # The HTTP port
-      - "81:80"
+      - "80:80"
       # The Web UI (enabled by --api.insecure=true)
       - "443:443"
-      - "8081:8080"
     volumes:
     # Volumes to persiste certificat uncomment if you want to dont ask them everytim use glusterFS
       - letsEncrypt:/letsencrypt
@@ -43,16 +45,20 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     deploy:
       replicas: 2
+      labels:
+        - traefik.http.services.lb.loadbalancer.server.port=8080
+        - traefik.http.routers.lb.rule=Host(`traefik.ensg.duckdns.org`)
+        - traefik.enable=true
       placement:
         constraints:
           - node.role == manager
           #Add network
-#     networks:
-#       - MONITORING_default
-# networks:
-#   MONITORING_default:
-#     external:
-#       name: MONITORING_default
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    name: traefik
 volumes:
   letsEncrypt:
     driver: glusterfs
