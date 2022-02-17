@@ -3,12 +3,12 @@
 
 #### MariaDB
 
-Pour tester :
+To test:
 
-- se rendre sur un noeud qui contient nextcloud
-- supprimer le container nextcould:
+- se rendre sur un noeud qui contient un container mariadb
+- supprimer le container mariadb:
 ```
-docker container rm nextcloud --force
+docker container rm ID_CONTAINER_MARIADB --force
 ```
 
 - vérifier si le container s'est redéployé sur un autre noeud:
@@ -26,9 +26,9 @@ https://nextcloud.ensg.duckdns.org
 
 #### InfluxDB
 
-Pour tester :
+To test:
 
-- se rendre sur le noeud qui contient influxdb
+- se rendre sur le noeud qui contient le container influxdb
 - supprimer le container influxdb:
 ```
 docker container rm ID_CONTAINER_INFLUXDB --force
