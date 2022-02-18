@@ -39,7 +39,7 @@ docker container rm ID_CONTAINER_MARIADB --force
     ```
     docker ps
     ```
-- check the availability of mariadb less 15 seconds by going to the following address:
+- check the availability of mariadb less 5 seconds by going to the following address:
 ```
 https://nextcloud.ensg.duckdns.org
 ```
@@ -74,5 +74,5 @@ https://grafana.ensg.duckdns.org
 - authenticate
 - go to the 'Telegraf Metrics Final' dashboard
 - select 'Last 15 minutes'
-- check that it takes less than 15 seconds to have again data
+- check that it takes less than 10 seconds to have again data
 - this last check also permits to visualize data persistance
