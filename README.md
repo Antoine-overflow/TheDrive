@@ -118,19 +118,19 @@ If you launch the app for the first time, follow the following steps:
 
 1. Set user and password for the admin as you wish
 2. Configure the database by clicking on "database settings" and fill out the following fields : 
-2.1. user : user 
-2.2. password : type cd .secret and then nano mysql_password . Copy and paste the password.
-2.3. database name : nextcloud
-2.4. url : node:3306
+- user : user 
+- password : type cd .secret and then nano mysql_password . Copy and paste the password.
+- database name : nextcloud
+- url : node:3306
 3. hit "install"
 4. Once you're on the main dashboard, go to apps, 
 5. Install OnlyOffice and able external storage
 6. go to settings/external storage
 7. add a new storage with the following fields filled out: 
-7.1. Folder name : local 
-7.2. External Storage : local 
-7.3. Configuration : /var/www/html 
-7.4. ht the validate button
+ - Folder name : local 
+ - External Storage : local 
+ - Configuration : /var/www/html 
+ -  ht the validate button
 8. go to the file explorer
 9. go to local/config/config.php 
 10. dit it and add the following lines 
