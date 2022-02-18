@@ -100,12 +100,14 @@ cd TheDrive/glusterfs_config
 ./launch.sh
 ```
 
-## 2.5 Nextcloud - OnlyOffice
+## 2.5 Nextcloud - Galera/Mariadb - OnlyOffice
 
-To start nextcloud and onlyoffice run : 
+To start all the applications services, you have to run the followin commands :  
+
 ```
-cd TheDrive/nextcloud
-docker-compose up -d
+cd TheDrive/app 
+
+
 ```
 
 Then go to localhost:8081 and add in the application OnlyOffice then run :
