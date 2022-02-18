@@ -65,7 +65,10 @@ services:
         - traefik.http.services.nextcloud.loadbalancer.server.port=80
         - traefik.http.routers.nextcloud.rule=Host(`nextcloud.ensg.duckdns.org`)
         - traefik.enable=true
-        
+    volumes:
+      - apps:/var/www/html/custom_apps
+      - config:/var/www/html/config
+      - data:/var/www/html/data
 
 
 
@@ -109,3 +112,17 @@ secrets:
     file: .secrets/mysql_password
   mysql_root_password:
     file: .secrets/mysql_root_password
+
+volumes:
+  apps:
+    driver: glusterfs
+    driver_opts:
+      replica: 2
+  config:
+    driver: glusterfs
+    driver_opts:
+      replica: 2
+  data:
+    driver: glusterfs
+    driver_opts:
+      replica: 2
