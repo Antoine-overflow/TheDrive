@@ -1,9 +1,11 @@
 # Test HA 
 
-### Boucle envoi de requetes ( every 0.01 secondes ) 
+### Boucle envoi de requetes + boucle envoi data
 
 run : 
+
 python3 requete_nextcloud.py 
+./test.sh
 
 ### test remove node 
 
@@ -20,4 +22,5 @@ Pour chaque noeux :
 
 [verifications] : 
 
-- Vérifier alerting Grafana pour traefik et telegraf 
+- Verifier alerting Grafana pour traefik et telegraf 
+- Verifier que tous les services sont actifs : docker service ls 
