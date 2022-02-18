@@ -24,3 +24,4 @@ Pour chaque noeux :
 
 - Verifier alerting Grafana pour traefik et telegraf 
 - Verifier que tous les services sont actifs : docker service ls 
+- Verifier accessibilité des données/services sur : Nextcloud + OnlyOffice
