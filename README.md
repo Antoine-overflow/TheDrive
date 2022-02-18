@@ -107,11 +107,51 @@ To start all the applications services, you have to run the followin commands :
 ```
 cd TheDrive/app 
 
+./start_app.sh
+
 
 ```
 
-Then go to localhost:8081 and add in the application OnlyOffice then run :
-`bash set_configuration.sh`
+Then go to https://nextcloud.ensg.duckdns.org. 
+
+If you launch the app for the first time, follow the following steps: 
+
+1. Set user and password for the admin as you wish
+2. Configure the database by clicking on "database settings" and fill out the following fields : 
+2.1. user : user 
+2.2. password : type cd .secret and then nano mysql_password . Copy and paste the password.
+2.3. database name : nextcloud
+2.4. url : node:3306
+3. hit "install"
+4. Once you're on the main dashboard, go to apps, 
+5. Install OnlyOffice and able external storage
+6. go to settings/external storage
+7. add a new storage with the following fields filled out: 
+7.1. Folder name : local 
+7.2. External Storage : local 
+7.3. Configuration : /var/www/html 
+7.4. ht the validate button
+8. go to the file explorer
+9. go to local/config/config.php 
+10. dit it and add the following lines 
+
+  'trusted_domains' => 
+  array (
+    0 => 'nextcloud.ensg.duckdns.org',
+    1 => 'nextcloud',
+  ),
+  'allow_local_remote_servers' => true, 
+
+11. got to settings and choose only office and set the following fields : 
+
+    - ONLYOFFICE Docs address
+    https://onlyoffice.ensg.duckdns.org/
+
+    - ONLYOFFICE Docs address for internal requests from the server 
+    http://onlyoffice/
+
+    - Server address for internal requests from ONLYOFFICE Docs 
+    http://nextcloud/
 
 You can now use OnlyOffice and edit online document in nextcloud.
 
