@@ -1,0 +1,111 @@
+version: '3.4'
+
+services:
+  seed:
+    image: colinmollenhour/mariadb-galera-swarm
+    environment:
+      - XTRABACKUP_PASSWORD_FILE=/run/secrets/xtrabackup_password
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD_FILE=/run/secrets/mysql_password
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql_root_password
+      - NODE_ADDRESS=^10.0.*.*
+    networks:
+      - mysql-nextcloud
+    command: seed
+    secrets:
+      - xtrabackup_password
+      - mysql_password
+      - mysql_root_password
+  node:
+    image: colinmollenhour/mariadb-galera-swarm
+    environment:
+      - XTRABACKUP_PASSWORD_FILE=/run/secrets/xtrabackup_password
+      - NODE_ADDRESS=^10.0.*.*
+      - HEALTHY_WHILE_BOOTING=1
+    networks:
+      - mysql-nextcloud
+    command: node tasks.seed,tasks.node
+    deploy:
+      replicas: 0
+      placement: 
+        preferences: 
+          - spread: node.labels.node
+    secrets:
+      - xtrabackup_password
+
+  nextcloud:
+    image: nextcloud:latest
+    restart: always
+    depends_on:
+      - node
+    secrets:
+      - mysql_root_password
+    environment:
+      - MYSQL_HOST=node:3306
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql_root_password 
+    networks:
+      - mysql-nextcloud
+      - traefik
+    deploy:
+      placement:
+        constraints: [node.role == worker]
+      replicas: 0
+      placement:
+        preferences:
+          - spread: node.labels.node
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      labels:
+        - traefik.http.services.nextcloud.loadbalancer.server.port=80
+        - traefik.http.routers.nextcloud.rule=Host(`nextcloud.ensg.duckdns.org`)
+        - traefik.enable=true
+        
+
+
+
+  onlyoffice:
+    image: onlyoffice/documentserver:latest
+    restart: always
+    stdin_open: true
+    tty: true
+    networks:
+      - traefik
+      - mysql-nextcloud
+    deploy:
+      replicas: 0
+      placement:
+        preferences:
+          - spread: node.labels.node
+      labels:
+        - traefik.http.services.onlyoffice.loadbalancer.server.port=80
+        - traefik.enable=true
+        - traefik.http.routers.onlyoffice.rule=Host(`nextcloud.ensg.duckdns.org`) && PathPrefix(`/onlyoffice`)
+        - traefik.http.routers.onlyoffice.middlewares=onlyoffice-headers,onlyoffice-pathstrip
+        - traefik.http.middlewares.onlyoffice-headers.headers.customrequestheaders.X-Forwarded-Proto=https
+        - traefik.http.middlewares.onlyoffice-headers.headers.customrequestheaders.X-Forwarded-Host=nextcloud.ensg.duckdns.org/onlyoffice
+        - traefik.http.middlewares.onlyoffice-headers.headers.customresponseheaders.X-Frame-Options=SAMEORIGIN
+        - traefik.http.middlewares.onlyoffice-headers.headers.accessControlAllowOriginList=*        
+        - traefik.http.middlewares.onlyoffice-pathstrip.stripprefix.prefixes=/onlyoffice/
+
+
+    
+networks:
+  mysql-nextcloud:
+    driver: overlay
+    attachable: true
+  traefik:
+    external: true
+
+secrets:
+  xtrabackup_password:
+    file: .secrets/xtrabackup_password
+  mysql_password:
+    file: .secrets/mysql_password
+  mysql_root_password:
+    file: .secrets/mysql_root_password

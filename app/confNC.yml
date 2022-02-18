@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  nextcloud:
+    image: nextcloud:latest
+    restart: always
+    secrets:
+      - mysql_root_password
+    environment:
+      - MYSQL_HOST=node:3306
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql_root_password
+    networks:
+      - mysql-nextcloud
+      - traefik
+    deploy:
+      placement:
+        constraints: [node.role == worker]
+      replicas: 0
+      placement:
+        preferences:
+          - spread: node.labels.node
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      labels:
+        - traefik.http.services.nextcloud.loadbalancer.server.port=80
+        - traefik.http.routers.nextcloud.rule=Host(`nextcloud.ensg.duckdns.org`)
+        - traefik.enable=true
+        
+networks:
+  mysql-nextcloud:
+    external: true
+  traefik:
+    external: true
+
+secrets:
+  mysql_root_password:
+    file: .secrets/mysql_root_password

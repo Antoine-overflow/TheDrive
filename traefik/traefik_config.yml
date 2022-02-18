@@ -54,6 +54,8 @@ services:
       placement:
         constraints:
           - node.role == manager
+        preferences:
+          - spread: node.labels.node
           #Add network
     networks:
       - traefik
