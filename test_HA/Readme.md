@@ -7,7 +7,7 @@ run :
 python3 requete_nextcloud.py 
 ./test.sh
 ```
-### test remove node 
+### Remove node 
 
 
 Pour chaque noeux : 
